@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seeroo Travels Attock | Safe Family Tours & Short Escapes</title>
+  <meta name="description" content="Discover premium family tours and girls-only short escapes from Attock, Wah, Kamra, and Taxila. Plan instantly with our smart AI travel assistant.">
+  
+  <!-- Font Pairing: Plus Jakarta Sans (Söhne alt) + Cormorant Garamond (GT Sectra alt) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="index.css">
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- 1. Header (Navbar) -->
+  <header class="main-header" id="home">
+    <div class="header-container">
+      <a href="#home" class="logo">
+        <span class="logo-accent">SEEROO</span> TRAVELS <span class="logo-sub">ATTOCK</span>
+      </a>
+      <nav class="nav-menu" id="navMenu">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#tours" class="nav-link">Tours</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#faq" class="nav-link">Contact</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+      </nav>
+      <div class="header-actions">
+        <a href="#tours" class="btn-nav">Book Seat</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 2. Hero Section (Full-bleed Atmospheric) -->
+    <section class="hero-section">
+      <div class="hero-overlay"></div>
+      <div class="hero-glow"></div>
+      <div class="hero-container">
+        <h1 class="hero-headline">
+          Plan Your Next <span class="serif-italic">Escape</span><br>Without the Travel Stress
+        </h1>
+        <p class="hero-subheadline">
+          Family-friendly one-day tours from Attock with premium transport, fresh meals, and professional coordination — powered by our smart booking assistant.
+        </p>
+        
+        <div class="hero-cta-group">
+          <a href="#tours" class="btn-primary">Book My Seat</a>
+          <button class="btn-secondary" onclick="openChat()">
+            <i data-lucide="message-square" class="btn-icon"></i>
+            Chat With Travel Agent
+          </button>
+        </div>
+
+        <div class="hero-trust-strip">
+          <div class="trust-item">
+            <i data-lucide="check-circle" class="trust-icon"></i>
+            <span>500+ Happy Travelers</span>
+          </div>
+          <div class="trust-divider"></div>
+          <div class="trust-item">
+            <i data-lucide="shield-check" class="trust-icon"></i>
+            <span>Safe Family Tours</span>
+          </div>
+          <div class="trust-divider"></div>
+          <div class="trust-item">
+            <i data-lucide="bus" class="trust-icon"></i>
+            <span>AC Transport Included</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Trust Strip (Animated Marquee) -->
+    <section class="trust-marquee-section">
+      <div class="marquee-wrapper">
+        <div class="marquee-content">
+          <span>Facebook 5★ Reviews</span>
+          <span class="marquee-dot"></span>
+          <span>Instagram Community</span>
+          <span class="marquee-dot"></span>
+          <span>TikTok Travel Highlights</span>
+          <span class="marquee-dot"></span>
+          <span>500+ Travelers Served</span>
+          <span class="marquee-dot"></span>
+          <span>100% Safe Family Tours</span>
+          <span class="marquee-dot"></span>
+          <!-- Duplicate for seamless scroll -->
+          <span>Facebook 5★ Reviews</span>
+          <span class="marquee-dot"></span>
+          <span>Instagram Community</span>
+          <span class="marquee-dot"></span>
+          <span>TikTok Travel Highlights</span>
+          <span class="marquee-dot"></span>
+          <span>500+ Travelers Served</span>
+          <span class="marquee-dot"></span>
+          <span>100% Safe Family Tours</span>
+          <span class="marquee-dot"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Stats Section -->
+    <section class="stats-section">
+      <div class="section-container">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Happy Explorers Served</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Safe Family Track Record</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">4+</div>
+            <div class="stat-label">Departure Cities (Attock, Wah, Kamra, Taxila)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">12+</div>
+            <div class="stat-label">Signature Destinations Annually</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Feature Bento Grid (MANDATORY - ZERO GAPS) -->
+    <section class="bento-section" id="about">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="subtitle">Why Choose Seeroo Travels?</span>
+          <h2 class="section-title">Designed for Stress-Free Family Travels</h2>
+        </div>
+        
+        <div class="bento-grid">
+          <!-- 1 Large 2x2 Card -->
+          <div class="bento-card bento-2x2 card-glow" onclick="openChat()">
+            <div class="bento-card-bg"></div>
+            <div class="bento-content">
+              <div class="bento-header-group">
+                <div class="bento-icon-wrapper main-icon">
+                  <i data-lucide="compass" class="bento-icon"></i>
+                  <i data-lucide="message-square" class="bento-icon-overlay"></i>
+                </div>
+                <span class="bento-tag">Interactive AI Assistant</span>
+              </div>
+              <h3 class="bento-card-title">Smart AI Booking Assistant</h3>
+              <p class="bento-card-desc">
+                Chat with our custom agent right now to check availability, calculate multi-person pricing, and draft your booking summary in real-time.
+              </p>
+              <ul class="bento-list">
+                <li><i data-lucide="check" class="list-bullet"></i> Ask about specific tours</li>
+                <li><i data-lucide="check" class="list-bullet"></i> Instant group pricing with discounts</li>
+                <li><i data-lucide="check" class="list-bullet"></i> Real-time seat availability checker</li>
+                <li><i data-lucide="check" class="list-bullet"></i> Direct booking confirmation generation</li>
+              </ul>
+              <div class="bento-action-trigger">
+                <span>Start Chatting</span>
+                <i data-lucide="arrow-right" class="arrow-icon"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Small Card: AC luxury transport -->
+          <div class="bento-card bento-1x1">
+            <div class="bento-content">
+              <div class="bento-icon-wrapper">
+                <i data-lucide="bus" class="bento-icon"></i>
+              </div>
+              <h3 class="bento-card-title">AC Luxury Transport</h3>
+              <p class="bento-card-desc">Comfortable Saloon Coasters tailored for mountain roads, ensuring a smooth ride for families.</p>
+            </div>
+          </div>
+
+          <!-- Small Card: Meals Included -->
+          <div class="bento-card bento-1x1">
+            <div class="bento-content">
+              <div class="bento-icon-wrapper">
+                <i data-lucide="utensils" class="bento-icon"></i>
+              </div>
+              <h3 class="bento-card-title">Meals Included</h3>
+              <p class="bento-card-desc">Hygienic, fresh, hot buffet breakfast and dinner served at clean family restaurants.</p>
+            </div>
+          </div>
+
+          <!-- Small Card: Safe Family Environment -->
+          <div class="bento-card bento-1x1">
+            <div class="bento-content">
+              <div class="bento-icon-wrapper">
+                <i data-lucide="shield" class="bento-icon"></i>
+              </div>
+              <h3 class="bento-card-title">Safe Family Environment</h3>
+              <p class="bento-card-desc">Strict family and girls-only environments. Zero tolerance for uncoordinated behaviors.</p>
+            </div>
+          </div>
+
+          <!-- Small Card: Professional Tour Management -->
+          <div class="bento-card bento-1x1">
+            <div class="bento-content">
+              <div class="bento-icon-wrapper">
+                <i data-lucide="map" class="bento-icon"></i>
+              </div>
+              <h3 class="bento-card-title">Professional Coordination</h3>
+              <p class="bento-card-desc">Dedicated, friendly tour managers who handle logistics, photo sessions, and guides.</p>
+            </div>
+          </div>
+
+          <!-- Small Card: Group Discounts -->
+          <div class="bento-card bento-1x1">
+            <div class="bento-content">
+              <div class="bento-icon-wrapper">
+                <i data-lucide="percent" class="bento-icon"></i>
+              </div>
+              <h3 class="bento-card-title">Group Discounts</h3>
+              <p class="bento-card-desc">Special reduced rates for families or groups of 5+ members. Automated in checkout.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Available Tours Section -->
+    <section class="tours-section" id="tours">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="subtitle">Our Signature Trips</span>
+          <h2 class="section-title">Upcoming Fixed-Date Excursions</h2>
+        </div>
+
+        <div class="tours-grid">
+          <!-- Tour 1 -->
+          <div class="tour-card">
+            <div class="tour-img-wrapper">
+              <img src="assets/tour_shogran.png" alt="Shogran Siri Paye Meadows" class="tour-img">
+              <span class="tour-badge">Best Seller</span>
+              <div class="tour-price">
+                <span class="price-val">Rs. 4,500</span>
+                <span class="price-unit">/ head</span>
+              </div>
+            </div>
+            <div class="tour-body">
+              <div class="tour-meta">
+                <div class="tour-date">
+                  <i data-lucide="calendar" class="meta-icon"></i>
+                  <span>18 July 2026</span>
+                </div>
+                <div class="tour-duration">
+                  <i data-lucide="clock" class="meta-icon"></i>
+                  <span>1-Day Tour</span>
+                </div>
+              </div>
+              <h3 class="tour-title">Shogran & Siri Paye Meadows</h3>
+              <p class="tour-desc">Ascend to the breathtaking alpine lawns of Siri Paye. A high-altitude lush valley surrounded by snow-capped peaks.</p>
+              
+              <div class="tour-inclusions">
+                <span class="inclusion-tag">AC Saloon Coaster</span>
+                <span class="inclusion-tag">Breakfast & Dinner</span>
+                <span class="inclusion-tag">Jeep Ride Included</span>
+                <span class="inclusion-tag">First-Aid Support</span>
+              </div>
+
+              <button class="btn-tour-book" onclick="startBooking('Shogran & Siri Paye Meadows', 4500, '18 July 2026')">
+                <span>Book Seat</span>
+                <i data-lucide="arrow-right" class="btn-arrow"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Tour 2 -->
+          <div class="tour-card">
+            <div class="tour-img-wrapper">
+              <img src="assets/tour_siran.png" alt="Siran Valley & Khanpur Dam" class="tour-img">
+              <span class="tour-badge accent">Adventure Choice</span>
+              <div class="tour-price">
+                <span class="price-val">Rs. 3,700</span>
+                <span class="price-unit">/ head</span>
+              </div>
+            </div>
+            <div class="tour-body">
+              <div class="tour-meta">
+                <div class="tour-date">
+                  <i data-lucide="calendar" class="meta-icon"></i>
+                  <span>25 July 2026</span>
+                </div>
+                <div class="tour-duration">
+                  <i data-lucide="clock" class="meta-icon"></i>
+                  <span>1-Day Tour</span>
+                </div>
+              </div>
+              <h3 class="tour-title">Siran Valley & Khanpur Dam</h3>
+              <p class="tour-desc">Witness the serene waters of the Siran River followed by boating, cliff jumping and sightseeing at Khanpur Dam.</p>
+              
+              <div class="tour-inclusions">
+                <span class="inclusion-tag">AC Saloon Coaster</span>
+                <span class="inclusion-tag">Breakfast & Dinner</span>
+                <span class="inclusion-tag">Boating Activity</span>
+                <span class="inclusion-tag">Tour Guide Support</span>
+              </div>
+
+              <button class="btn-tour-book" onclick="startBooking('Siran Valley & Khanpur Dam', 3700, '25 July 2026')">
+                <span>Book Seat</span>
+                <i data-lucide="arrow-right" class="btn-arrow"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Departure City Selector & Cost Calculator -->
+    <section class="calculator-section">
+      <div class="section-container">
+        <div class="calc-box">
+          <div class="calc-header text-center">
+            <span class="subtitle">Quick Logistics Check</span>
+            <h2 class="section-title text-white">Departure Points & Pricing Estimator</h2>
+            <p class="calc-sub">Select your departure city to view pick-up locations and estimate your total group pricing instantly.</p>
+          </div>
+
+          <div class="calc-interactive-grid">
+            <div class="calc-controls">
+              <div class="form-group">
+                <label class="calc-label">Choose Departure City</label>
+                <div class="city-selector-buttons" id="citySelector">
+                  <button class="city-btn active" data-city="Attock">Attock</button>
+                  <button class="city-btn" data-city="Wah">Wah</button>
+                  <button class="city-btn" data-city="Kamra">Kamra</button>
+                  <button class="city-btn" data-city="Taxila">Taxila</button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="calc-label">Select Your Destination</label>
+                <select class="calc-select" id="calcTourSelect">
+                  <option value="4500" data-tour-name="Shogran & Siri Paye Meadows">Shogran & Siri Paye Meadows — Rs. 4,500</option>
+                  <option value="3700" data-tour-name="Siran Valley & Khanpur Dam">Siran Valley & Khanpur Dam — Rs. 3,700</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="calc-label">Number of Seats (Adults/Kids)</label>
+                <div class="seat-counter">
+                  <button class="counter-btn" id="seatDec">-</button>
+                  <input type="number" class="counter-input" id="seatVal" value="4" min="1" max="30" readonly>
+                  <button class="counter-btn" id="seatInc">+</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="calc-results">
+              <div class="results-card">
+                <div class="results-pickup-info">
+                  <h4><i data-lucide="map-pin" class="pin-icon"></i> Pick-up Details</h4>
+                  <p id="pickupText"><strong>Attock:</strong> Fawara Chowk (Departure: 05:00 AM)</p>
+                </div>
+                
+                <hr class="results-divider">
+                
+                <div class="price-breakdown">
+                  <div class="breakdown-row">
+                    <span>Base Fare (<span id="calcCount">4</span> x Rs. <span id="calcBase">4,500</span>)</span>
+                    <span id="calcRawTotal">Rs. 18,000</span>
+                  </div>
+                  <div class="breakdown-row text-accent" id="discountRow" style="display: none;">
+                    <span>Group Discount Applied (<span id="calcDiscountPct">0</span>%)</span>
+                    <span id="calcDiscountVal">-Rs. 0</span>
+                  </div>
+                  <hr class="inner-divider">
+                  <div class="breakdown-row final-row">
+                    <span>Total Estimate</span>
+                    <span id="calcFinalTotal">Rs. 18,000</span>
+                  </div>
+                </div>
+
+                <button class="btn-primary w-full text-center" id="calcBookBtn">Book Estimated Seats</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. How It Works -->
+    <section class="how-it-works-section">
+      <div class="section-container">
+        <div class="section-header text-center">
+          <span class="subtitle">Booking Journey</span>
+          <h2 class="section-title">How To Secure Your Trip</h2>
+        </div>
+
+        <div class="steps-grid">
+          <!-- Step 1 -->
+          <div class="step-card">
+            <div class="step-icon-wrapper">
+              <i data-lucide="map" class="step-icon"></i>
+            </div>
+            <div class="step-num">Step 1 of 3</div>
+            <h3 class="step-title">Choose Tour</h3>
+            <p class="step-desc">Pick your preferred weekend getaway from our upcoming listings or ask the AI agent for advice.</p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step-card">
+            <div class="step-icon-wrapper">
+              <i data-lucide="calendar-check" class="step-icon"></i>
+            </div>
+            <div class="step-num">Step 2 of 3</div>
+            <h3 class="step-title">Confirm Seats</h3>
+            <p class="step-desc">Calculate your final pricing, fill out the basic form, and receive your digital reservation invoice.</p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-card">
+            <div class="step-icon-wrapper">
+              <i data-lucide="mountain-snow" class="step-icon"></i>
+            </div>
+            <div class="step-num">Step 3 of 3</div>
+            <h3 class="step-title">Travel & Enjoy</h3>
+            <p class="step-desc">Arrive at your selected local pickup point. Board the luxury coaster and enjoy a stress-free trip!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. Core Brand Philosophy -->
+    <section class="philosophy-section">
+      <div class="section-container">
+        <div class="philosophy-grid">
+          <div class="philosophy-text">
+            <span class="subtitle">Our Commitment</span>
+            <h2 class="section-title">We Build Trust Through Premium Security & Safe Logistics</h2>
+            <p class="philosophy-p">
+              Traveling with family shouldn't require complex logistics. SEEROO TRAVELS ATTOCK bridges the gap by offering premium coordination from your local doorstep in Attock, Kamra, Wah, and Taxila. 
+            </p>
+            <p class="philosophy-p">
+              We design tours where girls-only groups, elderly members, and children feel fully safe. Our guides are trained professionals, our buses are air-conditioned, and our timing is strictly maintained to provide maximum comfort.
+            </p>
+            
+            <div class="philosophy-badges">
+              <div class="phil-badge">
+                <i data-lucide="check-square" class="phil-badge-icon"></i>
+                <span>Strict Family Cohort</span>
+              </div>
+              <div class="phil-badge">
+                <i data-lucide="check-square" class="phil-badge-icon"></i>
+                <span>Verified Clean Hotels & Food</span>
+              </div>
+              <div class="phil-badge">
+                <i data-lucide="check-square" class="phil-badge-icon"></i>
+                <span>Dedicated Female Guides upon Request</span>
+              </div>
+            </div>
+          </div>
+          <div class="philosophy-visual">
+            <div class="image-box">
+              <div class="glow-underlay"></div>
+              <img src="assets/tour_shogran.png" alt="Happy family on Pakistan tour" class="phil-img">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Social Proof (Testimonials) -->
+    <section class="testimonials-section">
+      <div class="section-container">
+        <div class="section-header text-center">
+          <span class="subtitle">Happy Clients</span>
+          <h2 class="section-title">Loved by Families from Attock & Wah</h2>
+        </div>
+
+        <div class="testimonials-grid">
+          <!-- Testimonial 1 -->
+          <div class="testimonial-card">
+            <div class="rating-stars">
+              <i data-lucide="star" class="star-icon fill"></i>
+              <i data-lucide="star" class="star-icon fill"></i>
+              <i data-lucide="star" class="star-icon fill"></i>
+              <i data-lucide="star" class="star-icon fill"></i>
+              <i data-lucide="star" class="star-icon fill"></i>
+            </div>
+            <p class="testimonial-text">
+              "We booked the Siri Paye Meadows trip for our family of 8 from Attock. The coordinator took care of everything: hot lunch at Kiwai, comfy coaster, and secure jeep transfers. A highly recommended service!"
+            </p>
+            <div class="testimonial-author">
+              <img src="assets/avatar_family1.png" alt="Ayesha & Family" class="author-img">
+              <div class="author-info">
+                <h4 class="author-name">Ayesha & Family</h4>
+                <p class="author-meta">Attock Resident</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="testimonial-card">
+            <div class="rating-stars">
+              <i data-lucide="star" class="star-icon fill"></i>
+              <i data-lucide="star" class="star-icon fill"></i>
+              <i data-lucide="star" class="star-icon fill"></i>
+              <i data-lucide="star" class="star-icon fill"></i>
+              <i data-lucide="star" class="star-icon fill"></i>
+            </div>
+            <p class="testimonial-text">
+              "Organized a girls-only trip for my Wah classmates. Safety was our primary concern, and the Seeroo crew made us feel exceptionally comfortable and protected. The AI chat calculated our discount immediately!"
+            </p>
+            <div class="testimonial-author">
+              <img src="assets/avatar_girls_trip.png" alt="Zainab & Friends" class="author-img">
+              <div class="author-info">
+                <h4 class="author-name">Zainab & Friends</h4>
+                <p class="author-meta">Wah Cantt</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="testimonial-card">
+            <div class="rating-stars">
+              <i data-lucide="star" class="star-icon fill"></i>
+              <i data-lucide="star" class="star-icon fill"></i>
+              <i data-lucide="star" class="star-icon fill"></i>
+              <i data-lucide="star" class="star-icon fill"></i>
+              <i data-lucide="star" class="star-icon fill"></i>
+            </div>
+            <p class="testimonial-text">
+              "Superb communication from departure to return. Our Khanpur Dam tour was excellently planned. AC coaster seatings were comfortable for my parents, and the food quality was surprisingly great."
+            </p>
+            <div class="testimonial-author">
+              <img src="assets/avatar_family2.png" alt="Kamran Malik" class="author-img">
+              <div class="author-info">
+                <h4 class="author-name">Kamran Malik</h4>
+                <p class="author-meta">Taxila Resident</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. Meet Your Personal AI Travel Assistant (Showcase & Chat widget) -->
+    <section class="ai-agent-showcase-section" id="about-ai">
+      <div class="section-container">
+        <div class="ai-agent-grid">
+          <div class="ai-agent-text">
+            <span class="subtitle">Smart Booking Assistant</span>
+            <h2 class="section-title">Meet Your Personal Travel Assistant</h2>
+            <p class="ai-agent-p">
+              Say goodbye to waiting hours for WhatsApp replies. Our smart tour agent is online 24/7 to provide instant details, customize your pricing, and handle your booking structure right now.
+            </p>
+
+            <ul class="ai-features-list">
+              <li>
+                <div class="ai-feat-icon"><i data-lucide="zap"></i></div>
+                <div class="ai-feat-content">
+                  <h4>Instant Answers</h4>
+                  <p>Get precise details regarding timings, pickup slots, and meals.</p>
+                </div>
+              </li>
+              <li>
+                <div class="ai-feat-icon"><i data-lucide="calculator"></i></div>
+                <div class="ai-feat-content">
+                  <h4>Price Calculation</h4>
+                  <p>Input group size to get exact base rates and automatic family discounts.</p>
+                </div>
+              </li>
+              <li>
+                <div class="ai-feat-icon"><i data-lucide="file-check"></i></div>
+                <div class="ai-feat-content">
+                  <h4>Booking Confirmation</h4>
+                  <p>Verify seat availability and draft bookings in seconds.</p>
+                </div>
+              </li>
+              <li>
+                <div class="ai-feat-icon"><i data-lucide="file-text"></i></div>
+                <div class="ai-feat-content">
+                  <h4>PDF Invoice & WhatsApp Support</h4>
+                  <p>Generate a professional receipt and forward confirmation directly to WhatsApp.</p>
+                </div>
+              </li>
+            </ul>
+
+            <button class="btn-primary" onclick="openChat()">Start Chat</button>
+          </div>
+
+          <div class="ai-agent-mockup-wrapper">
+            <!-- Simulated Live Chat Widget Inside Page -->
+            <div class="chat-widget-embedded">
+              <div class="chat-header-embed">
+                <div class="header-avatar-group">
+                  <div class="avatar-status">
+                    <span class="status-indicator online"></span>
+                  </div>
+                  <div>
+                    <h4>Seeroo Bot</h4>
+                    <span class="subtitle-chat">AI Travel Agent • Active</span>
+                  </div>
+                </div>
+                <i data-lucide="compass" class="chat-accent-icon"></i>
+              </div>
+
+              <!-- Message Window -->
+              <div class="chat-body-embed" id="chatEmbedBody">
+                <div class="chat-msg bot">
+                  <p>Assalam-o-Alaikum! 🌄 I am your Seeroo Travels assistant. How can I help you book your next escape today? You can ask about our Shogran or Siran Valley trips!</p>
+                  <span class="msg-time">Just now</span>
+                </div>
+              </div>
+
+              <!-- Chat Quick Suggestions -->
+              <div class="chat-suggestions" id="chatSuggestions">
+                <button class="suggest-btn" onclick="sendSuggest('Tell me about Shogran Meadows')">Tell me about Shogran</button>
+                <button class="suggest-btn" onclick="sendSuggest('Check seat availability')">Check seats</button>
+                <button class="suggest-btn" onclick="sendSuggest('Calculate group pricing')">Group Pricing</button>
+              </div>
+
+              <!-- Input Area -->
+              <div class="chat-input-embed">
+                <input type="text" placeholder="Ask about tour dates, seats, prices..." id="chatEmbedInput">
+                <button class="chat-send-btn" id="chatEmbedSend" aria-label="Send Message">
+                  <i data-lucide="send"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. Safety & Trust Section -->
+    <section class="safety-section">
+      <div class="section-container">
+        <div class="section-header text-center">
+          <span class="subtitle">Travel Guard</span>
+          <h2 class="section-title">Four Pillars of Safety & Quality</h2>
+        </div>
+
+        <div class="safety-grid">
+          <!-- Pillar 1 -->
+          <div class="safety-card">
+            <div class="safety-icon-wrapper">
+              <i data-lucide="activity" class="safety-icon"></i>
+            </div>
+            <h3 class="safety-title">First Aid Support</h3>
+            <p class="safety-desc">Every tour manager carries a fully-equipped medical first-aid kit and maintains direct contact with roadside medical teams.</p>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="safety-card">
+            <div class="safety-icon-wrapper">
+              <i data-lucide="user-check" class="safety-icon"></i>
+            </div>
+            <h3 class="safety-title">Verified Drivers</h3>
+            <p class="safety-desc">We work exclusively with licensed drivers who possess over 10 years of experience navigating steep mountain roads.</p>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="safety-card">
+            <div class="safety-icon-wrapper">
+              <i data-lucide="heart" class="safety-icon"></i>
+            </div>
+            <h3 class="safety-title">Safe for Families & Girls</h3>
+            <p class="safety-desc">We strictly verify participant profiles to maintain a clean environment, making it perfect for solo girls and private families.</p>
+          </div>
+
+          <!-- Pillar 4 -->
+          <div class="safety-card">
+            <div class="safety-icon-wrapper">
+              <i data-lucide="map-pin" class="safety-icon"></i>
+            </div>
+            <h3 class="safety-title">Clear Pickup Points</h3>
+            <p class="safety-desc">Save time with designated landmarks in Attock, Kamra, Wah, and Taxila. Exact timings coordinated via active WhatsApp groups.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. Packing & Tour Prep Guide -->
+    <section class="prep-guide-section">
+      <div class="section-container">
+        <div class="prep-card">
+          <div class="prep-grid">
+            <div class="prep-illustration">
+              <i data-lucide="backpack" class="giant-backpack-icon"></i>
+            </div>
+            <div class="prep-content">
+              <span class="subtitle">Quick Checklist</span>
+              <h2 class="section-title text-white">How to Prepare For Your Trip</h2>
+              <p class="prep-desc-p">To ensure your short mountain escape is comfortable, we suggest packing the following essentials:</p>
+              
+              <div class="prep-lists-wrapper">
+                <ul class="prep-checklist">
+                  <li><i data-lucide="check" class="check-green"></i> Jacket/Shawl (Shogran gets cold in the evening)</li>
+                  <li><i data-lucide="check" class="check-green"></i> Sturdy jogging shoes or grippy sneakers</li>
+                  <li><i data-lucide="check" class="check-green"></i> Original CNIC card (Mandatory for verification)</li>
+                </ul>
+                <ul class="prep-checklist">
+                  <li><i data-lucide="check" class="check-green"></i> Water bottle & basic personal medicines</li>
+                  <li><i data-lucide="check" class="check-green"></i> Umbrella (unpredictable mountain showers)</li>
+                  <li><i data-lucide="check" class="check-green"></i> Mobile power bank for long photography sessions</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14. FAQ Accordion -->
+    <section class="faq-section" id="faq">
+      <div class="section-container">
+        <div class="section-header text-center">
+          <span class="subtitle">Common Inquiries</span>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq-accordion-wrapper">
+          <!-- Item 1 -->
+          <div class="faq-item">
+            <button class="faq-trigger">
+              <span>How do I book?</span>
+              <i data-lucide="chevron-down" class="chevron-icon"></i>
+            </button>
+            <div class="faq-panel">
+              <p class="faq-answer">
+                You can book directly using our smart AI Agent (by chatting with it and completing the booking step), or by clicking "Book Seat" on any tour, filling out the basic details, and making a reservation.
+              </p>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="faq-item">
+            <button class="faq-trigger">
+              <span>Is payment advance?</span>
+              <i data-lucide="chevron-down" class="chevron-icon"></i>
+            </button>
+            <div class="faq-panel">
+              <p class="faq-answer">
+                Yes, a partial advance deposit of Rs. 1,000 per seat is required to secure transport booking. The remaining balance is collected in cash or online transfer at the time of boarding.
+              </p>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="faq-item">
+            <button class="faq-trigger">
+              <span>What if tour cancels?</span>
+              <i data-lucide="chevron-down" class="chevron-icon"></i>
+            </button>
+            <div class="faq-panel">
+              <p class="faq-answer">
+                In the rare event of extreme weather conditions or political roadblocks causing tour cancellation, Seeroo Travels offers a 100% refund of your advance deposit, or the option to reschedule to the next weekend.
+              </p>
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="faq-item">
+            <button class="faq-trigger">
+              <span>Are families prioritized?</span>
+              <i data-lucide="chevron-down" class="chevron-icon"></i>
+            </button>
+            <div class="faq-panel">
+              <p class="faq-answer">
+                Absolutely. We maintain a family-only environment on all public excursions. Solo male travelers are only allowed if they are part of a family group, ensuring complete comfort for ladies and children.
+              </p>
+            </div>
+          </div>
+
+          <!-- Item 5 -->
+          <div class="faq-item">
+            <button class="faq-trigger">
+              <span>Are meals included?</span>
+              <i data-lucide="chevron-down" class="chevron-icon"></i>
+            </button>
+            <div class="faq-panel">
+              <p class="faq-answer">
+                Yes! All tour prices include a hot chicken buffet breakfast (omelet, chana, paratha, tea) and a rich chicken karahi/biryani dinner served at quality roadside restaurants along the route.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15. Final CTA Section -->
+    <section class="final-cta-section">
+      <div class="final-cta-overlay"></div>
+      <div class="final-cta-glow"></div>
+      <div class="section-container relative-z">
+        <div class="final-cta-box text-center">
+          <h2 class="final-headline">Reserve Your Seat Before It Fills</h2>
+          <p class="final-sub">Limited seats per trip (max 20 travelers per Saloon Coaster). Secure your family booking today.</p>
+          <div class="final-cta-buttons">
+            <a href="#tours" class="btn-primary">Book My Seat</a>
+            <a href="https://wa.me/923001234567" target="_blank" class="btn-whatsapp">
+              <i data-lucide="phone-call" class="btn-icon"></i>
+              Call Customer Support
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 16. Footer -->
+  <footer class="main-footer" id="about">
+    <div class="section-container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3 class="footer-logo">SEEROO TRAVELS <span class="logo-accent">ATTOCK</span></h3>
+          <p class="footer-tagline">ESCAPE. EXPLORE. EXPERIENCE.</p>
+          <p class="footer-desc">Providing premium, secure, and memorable one-day trips for families and groups across Northern Pakistan from Attock, Wah, Taxila, and Kamra.</p>
+        </div>
+
+        <div class="footer-links">
+          <h4>Quick Navigation</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#tours">Available Tours</a></li>
+            <li><a href="#about">About Our Agency</a></li>
+            <li><a href="#faq">Frequently Asked Questions</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-contact">
+          <h4>Get in Touch</h4>
+          <p><i data-lucide="map-pin" class="footer-contact-icon"></i> Fawara Chowk, Attock Cantonment, Pakistan</p>
+          <p><i data-lucide="phone" class="footer-contact-icon"></i> +92 300 1234567</p>
+          <p><i data-lucide="mail" class="footer-contact-icon"></i> info@seerootravels.com</p>
+        </div>
+      </div>
+
+      <hr class="footer-divider">
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Seeroo Travels Attock. All rights reserved. Designed for Pakistani family travelers.</p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a>
+          <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+          <a href="#" aria-label="Youtube"><i data-lucide="youtube"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING CHAT WIDGET (Triggered by Hero & Bento) -->
+  <div class="floating-chat-container" id="floatingChatContainer">
+    <div class="chat-card-floating">
+      <div class="chat-header-floating">
+        <div class="header-avatar-group">
+          <div class="avatar-status">
+            <span class="status-indicator online"></span>
+          </div>
+          <div>
+            <h4>Seeroo Bot</h4>
+            <span class="subtitle-chat">AI Travel Agent • Online</span>
+          </div>
+        </div>
+        <button class="chat-close-btn" onclick="closeChat()" aria-label="Close Chat">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <!-- Live Chat Messages -->
+      <div class="chat-body-floating" id="chatFloatingBody">
+        <div class="chat-msg bot">
+          <p>Assalam-o-Alaikum! 🌄 I am your Seeroo Travels booking assistant.</p>
+        </div>
+        <div class="chat-msg bot">
+          <p>I can help check seats, answer tour questions, and generate your booking confirmation with family discounts. What would you like to explore?</p>
+        </div>
+      </div>
+
+      <!-- Quick suggestions inside floating chat -->
+      <div class="chat-suggestions-floating" id="chatSuggestionsFloating">
+        <button class="suggest-btn" onclick="sendSuggestFloating('Tell me about Shogran Meadows')">About Shogran</button>
+        <button class="suggest-btn" onclick="sendSuggestFloating('Tell me about Siran Valley')">About Siran Valley</button>
+        <button class="suggest-btn" onclick="sendSuggestFloating('Check seat availability')">Check Seats</button>
+      </div>
+
+      <!-- Chat input -->
+      <div class="chat-input-floating">
+        <input type="text" placeholder="Type a message or question..." id="chatFloatingInput">
+        <button class="chat-send-btn-floating" id="chatFloatingSend" aria-label="Send Message">
+          <i data-lucide="send"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOOKING MODAL (Manual & AI Integration) -->
+  <div class="modal-backdrop" id="bookingModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><i data-lucide="calendar" class="header-icon"></i> Reserve Your Seats</h3>
+        <button class="modal-close" onclick="closeBookingModal()"><i data-lucide="x"></i></button>
+      </div>
+      <div class="modal-body">
+        <form id="bookingForm">
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="bookTourName">Selected Tour</label>
+              <input type="text" id="bookTourName" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+              <label for="bookTourDate">Date</label>
+              <input type="text" id="bookTourDate" class="form-control" readonly>
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="bookCity">Departure Point</label>
+              <select id="bookCity" class="form-control">
+                <option value="Attock">Attock (Fawara Chowk)</option>
+                <option value="Wah">Wah Cantt (G.T. Road Plaza)</option>
+                <option value="Kamra">Kamra (Cantt Gate)</option>
+                <option value="Taxila">Taxila (Main Chowk)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="bookSeats">Seats Required</label>
+              <input type="number" id="bookSeats" class="form-control" value="2" min="1" max="25">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="bookName">Lead Traveler Name</label>
+            <input type="text" id="bookName" class="form-control" placeholder="e.g. Muhammad Ahmad" required>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="bookPhone">WhatsApp Number</label>
+              <input type="tel" id="bookPhone" class="form-control" placeholder="e.g. 03001234567" required>
+            </div>
+            <div class="form-group">
+              <label for="bookCNIC">CNIC Number (For Insurance/Security)</label>
+              <input type="text" id="bookCNIC" class="form-control" placeholder="e.g. 37101-XXXXXXX-X" required>
+            </div>
+          </div>
+
+          <!-- Price Display -->
+          <div class="modal-pricing-box">
+            <div class="modal-price-row">
+              <span>Unit Price:</span>
+              <span id="modalUnitPrice">Rs. 0</span>
+            </div>
+            <div class="modal-price-row" id="modalDiscountRow" style="display: none;">
+              <span>Group Discount (<span id="modalDiscountPct">0</span>%):</span>
+              <span id="modalDiscountVal">-Rs. 0</span>
+            </div>
+            <div class="modal-price-row total-row">
+              <span>Total Amount:</span>
+              <span id="modalTotalPrice">Rs. 0</span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary w-full text-center">Confirm & Generate Invoice</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- INVOICE SUCCESS MODAL -->
+  <div class="modal-backdrop" id="invoiceModal">
+    <div class="modal-content invoice-content">
+      <div class="modal-header">
+        <h3><i data-lucide="file-text" class="header-icon text-accent"></i> Booking Invoice</h3>
+        <button class="modal-close" onclick="closeInvoiceModal()"><i data-lucide="x"></i></button>
+      </div>
+      <div class="modal-body" id="invoiceReceiptBody">
+        <!-- Dynamically generated receipt will go here -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="printInvoice()"><i data-lucide="printer"></i> Print / Save PDF</button>
+        <button class="btn-primary" onclick="shareWhatsApp()"><i data-lucide="send"></i> Send to WhatsApp</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script Import -->
+  <script src="app.js"></script>
+</body>
+</html>
