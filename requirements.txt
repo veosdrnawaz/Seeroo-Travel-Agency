@@ -1,0 +1,7 @@
+fastapi>=0.115.0
+uvicorn==0.28.0
+sqlalchemy>=2.0.32
+python-dotenv==1.0.1
+pydantic>=2.10.0
+email-validator
+
