@@ -5,7 +5,9 @@ from app.db.session import get_db
 from app.schemas.booking import BookingResponse, BookingCreate
 from app.services import booking_service
 
-router = APIRouter(prefix="/bookings", tags=["Bookings"])
+from app.core.config import settings
+
+router = APIRouter(prefix=f"{settings.API_PREFIX}/bookings", tags=["Bookings"])
 
 @router.post("", response_model=BookingResponse, status_code=status.HTTP_201_CREATED)
 def book_seats(booking_data: BookingCreate, db: Session = Depends(get_db)):

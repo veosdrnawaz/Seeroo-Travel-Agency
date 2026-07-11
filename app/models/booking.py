@@ -21,3 +21,4 @@ class Booking(Base):
     # Relationships
     user = relationship("User", back_populates="bookings")
     tour = relationship("Tour", back_populates="bookings")
+    email_logs = relationship("EmailLog", back_populates="booking", cascade="all, delete-orphan")

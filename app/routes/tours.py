@@ -6,7 +6,9 @@ from app.db.session import get_db
 from app.schemas.tour import TourResponse, TourCreate
 from app.services import tour_service
 
-router = APIRouter(prefix="/tours", tags=["Tours"])
+from app.core.config import settings
+
+router = APIRouter(prefix=f"{settings.API_PREFIX}/tours", tags=["Tours"])
 
 @router.get("", response_model=List[TourResponse])
 def read_tours(db: Session = Depends(get_db)):

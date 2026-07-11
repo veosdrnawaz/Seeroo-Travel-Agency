@@ -26,27 +26,29 @@ def create_tour(db: Session, tour_data: TourCreate) -> Tour:
 
 def seed_default_tours(db: Session):
     """
-    Seeds the default tours if they do not exist in the database.
+    Seeds the default tours with static UUIDs to ensure alignment across
+    database states, vector search metadata, and LLM agents.
     """
     existing_tours = db.query(Tour).all()
     if len(existing_tours) == 0:
-        default_tours = [
-            TourCreate(
-                tour_name="Shogran & Siri Paye Meadows",
-                date="18 July 2026",
-                price_per_head=4500,
-                total_seats=20,
-                available_seats=20,
-                category="Family Short Tour"
-            ),
-            TourCreate(
-                tour_name="Siran Valley & Khanpur Dam",
-                date="25 July 2026",
-                price_per_head=3700,
-                total_seats=20,
-                available_seats=20,
-                category="Family Short Tour"
-            )
-        ]
-        for t in default_tours:
-            create_tour(db, t)
+        shogran = Tour(
+            id=uuid.UUID("05d29dfa-b9da-4d95-8d17-e1917e9c9959"),
+            tour_name="Shogran & Siri Paye Meadows",
+            date="18 July 2026",
+            price_per_head=4500,
+            total_seats=20,
+            available_seats=20,
+            category="Family Short Tour"
+        )
+        siran = Tour(
+            id=uuid.UUID("2ad29dfa-b9da-4d95-8d17-e1917e9c9958"),
+            tour_name="Siran Valley & Khanpur Dam",
+            date="25 July 2026",
+            price_per_head=3700,
+            total_seats=20,
+            available_seats=20,
+            category="Family Short Tour"
+        )
+        db.add(shogran)
+        db.add(siran)
+        db.commit()

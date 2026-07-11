@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking Confirmation – Seeroo Travels Attock</title>
+  <style>
+    /* ── Reset & Base ──────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #f0f4f1;
+      font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+      color: #1a2e1a;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Outer wrapper ─────────────────────────────── */
+    .email-wrapper {
+      max-width: 620px;
+      margin: 32px auto;
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    /* ── Brand Header ──────────────────────────────── */
+    .header {
+      background: linear-gradient(135deg, #1a4a1a 0%, #2d7a2d 60%, #3a9a3a 100%);
+      padding: 36px 32px 28px;
+      text-align: center;
+    }
+    .header-logo {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: #a3d9a3;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .header-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 1px;
+    }
+    .header-tagline {
+      font-size: 11px;
+      color: #c8e6c8;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+    .header-divider {
+      width: 48px;
+      height: 3px;
+      background: #f97316;
+      border-radius: 2px;
+      margin: 16px auto 0;
+    }
+
+    /* ── Success Badge ─────────────────────────────── */
+    .success-band {
+      background: #f0fdf0;
+      border-left: 4px solid #22c55e;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .success-icon {
+      width: 36px;
+      height: 36px;
+      background: #22c55e;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .success-icon svg { display: block; }
+    .success-text h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #166534;
+    }
+    .success-text p {
+      font-size: 13px;
+      color: #4b7a4b;
+      margin-top: 2px;
+    }
+
+    /* ── Body Content ──────────────────────────────── */
+    .content { padding: 28px 32px; }
+
+    .greeting {
+      font-size: 15px;
+      color: #2d4a2d;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .greeting strong { color: #1a4a1a; }
+
+    /* ── Details Card ──────────────────────────────── */
+    .details-card {
+      background: #f8fdf8;
+      border: 1px solid #c8e6c8;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .details-card-header {
+      background: #1a4a1a;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 10px 18px;
+    }
+    .details-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .details-table tr:not(:last-child) td {
+      border-bottom: 1px solid #e8f5e8;
+    }
+    .details-table td {
+      padding: 11px 18px;
+      font-size: 13.5px;
+      vertical-align: middle;
+    }
+    .details-table .label {
+      color: #5a7a5a;
+      font-weight: 600;
+      width: 42%;
+      white-space: nowrap;
+    }
+    .details-table .value {
+      color: #1a2e1a;
+      font-weight: 500;
+    }
+    .details-table .value.highlight {
+      color: #1a4a1a;
+      font-weight: 700;
+    }
+
+    /* ── Total Row ─────────────────────────────────── */
+    .total-row {
+      background: linear-gradient(90deg, #1a4a1a, #2d7a2d);
+      margin: 0 -1px -1px;
+    }
+    .total-row td {
+      padding: 14px 18px !important;
+      border-bottom: none !important;
+      border-top: none !important;
+    }
+    .total-row .label {
+      color: #a3d9a3 !important;
+      font-size: 12px !important;
+    }
+    .total-row .value {
+      color: #ffffff !important;
+      font-size: 20px !important;
+      font-weight: 800 !important;
+    }
+
+    /* ── Invoice Note ──────────────────────────────── */
+    .invoice-note {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-left: 4px solid #f97316;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 24px;
+    }
+    .invoice-note p {
+      font-size: 13px;
+      color: #7c3a1a;
+      line-height: 1.6;
+    }
+    .invoice-note strong { color: #c2410c; }
+
+    /* ── Footer ────────────────────────────────────── */
+    .footer {
+      background: #1a2e1a;
+      padding: 24px 32px;
+      text-align: center;
+    }
+    .footer p {
+      font-size: 12px;
+      color: #6b9b6b;
+      line-height: 1.7;
+    }
+    .footer .brand {
+      color: #a3d9a3;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1px;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .footer .tagline-footer {
+      color: #f97316;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    /* ── Responsive ────────────────────────────────── */
+    @media (max-width: 480px) {
+      .email-wrapper { margin: 0; border-radius: 0; }
+      .header { padding: 28px 20px 22px; }
+      .content { padding: 22px 18px; }
+      .footer { padding: 20px 18px; }
+      .details-table .label { width: 38%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="email-wrapper">
+
+    <!-- ── Brand Header ──────────────────────────── -->
+    <div class="header">
+      <div class="header-logo">Seeroo Travels Attock</div>
+      <div class="header-title">Booking Confirmed ✓</div>
+      <div class="header-tagline">Escape &nbsp;·&nbsp; Explore &nbsp;·&nbsp; Experience</div>
+      <div class="header-divider"></div>
+    </div>
+
+    <!-- ── Success Banner ─────────────────────────── -->
+    <div class="success-band">
+      <div class="success-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+             stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <div class="success-text">
+        <h2>Your seat is reserved!</h2>
+        <p>Booking ID: <strong>{booking_id}</strong></p>
+      </div>
+    </div>
+
+    <!-- ── Body Content ────────────────────────────── -->
+    <div class="content">
+
+      <p class="greeting">
+        Assalam-o-Alaikum, <strong>{customer_name}</strong>!<br />
+        Thank you for booking with Seeroo Travels. Your reservation has been confirmed.
+        Please bring this email or show your Booking ID at the departure point.
+      </p>
+
+      <!-- Booking Details -->
+      <div class="details-card">
+        <div class="details-card-header">📋 &nbsp;Booking Details</div>
+        <table class="details-table">
+          <tr>
+            <td class="label">Tour</td>
+            <td class="value highlight">{tour_name}</td>
+          </tr>
+          <tr>
+            <td class="label">Date</td>
+            <td class="value">{tour_date}</td>
+          </tr>
+          <tr>
+            <td class="label">Pickup City</td>
+            <td class="value">{pickup_city}</td>
+          </tr>
+          <tr>
+            <td class="label">Seats Booked</td>
+            <td class="value">{seats} seat(s)</td>
+          </tr>
+          <tr>
+            <td class="label">Price / Head</td>
+            <td class="value">Rs. {price_per_head:,}</td>
+          </tr>
+          <tr>
+            <td class="label">Contact #</td>
+            <td class="value">{contact_number}</td>
+          </tr>
+          <tr class="total-row">
+            <td class="label">Total Amount</td>
+            <td class="value">Rs. {total_paid:,}</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Payment Note -->
+      <div class="invoice-note">
+        <p>
+          <strong>⚠ Payment Reminder:</strong> Full payment must be completed at the
+          pickup point before departure. Please arrive <strong>15 minutes early</strong>.
+          The invoice PDF is attached to this email for your records.
+        </p>
+      </div>
+
+    </div><!-- /.content -->
+
+    <!-- ── Footer ──────────────────────────────────── -->
+    <div class="footer">
+      <span class="brand">Seeroo Travels Attock</span>
+      <span class="tagline-footer">Escape &nbsp;·&nbsp; Explore &nbsp;·&nbsp; Experience</span>
+      <p>
+        This is an automated confirmation. For queries, contact us on WhatsApp.<br />
+        Serving Attock, Wah, Kamra &amp; Taxila · Domestic Day Tours
+      </p>
+    </div>
+
+  </div><!-- /.email-wrapper -->
+</body>
+</html>

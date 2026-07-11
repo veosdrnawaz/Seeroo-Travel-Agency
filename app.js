@@ -189,8 +189,45 @@ function computePricing(pricePerHead, seats) {
 // ==========================================
 // INTERACTIVE SIMULATED AI TRAVEL AGENT
 // ==========================================
-let currentChatTour = null;
-let currentChatSeats = null;
+let isBookingConfirmed = false;
+
+// Initialize state on page load
+document.addEventListener("DOMContentLoaded", () => {
+  const threadId = getOrGenerateThreadId();
+  const confirmed = localStorage.getItem("seeroo_booking_confirmed_" + threadId);
+  if (confirmed === "true") {
+    isBookingConfirmed = true;
+    setTimeout(disableChatInput, 200);
+  }
+});
+
+function getOrGenerateThreadId() {
+  let threadId = localStorage.getItem("seeroo_thread_id");
+  if (!threadId) {
+    // Generate simple unique thread UUID format
+    threadId = "thread_" + Math.random().toString(36).substr(2, 9) + "_" + Date.now();
+    localStorage.setItem("seeroo_thread_id", threadId);
+  }
+  return threadId;
+}
+
+function disableChatInput() {
+  const embedInput = document.getElementById("chatEmbedInput");
+  const embedSend = document.getElementById("chatEmbedSend");
+  const floatingInput = document.getElementById("chatFloatingInput");
+  const floatingSend = document.getElementById("chatFloatingSend");
+  
+  if (embedInput) {
+    embedInput.disabled = true;
+    embedInput.placeholder = "Booking session locked.";
+  }
+  if (embedSend) embedSend.disabled = true;
+  if (floatingInput) {
+    floatingInput.disabled = true;
+    floatingInput.placeholder = "Booking session locked.";
+  }
+  if (floatingSend) floatingSend.disabled = true;
+}
 
 function initChatSystems() {
   // 1. Embedded chat elements
@@ -264,139 +301,324 @@ function appendMessage(target, sender, text) {
   body.scrollTop = body.scrollHeight;
 }
 
-// Parse user input and respond
+// Show animated typing indicator bubble
+function showTypingIndicator(target) {
+  const bodyId = target === "embed" ? "chatEmbedBody" : "chatFloatingBody";
+  const body = document.getElementById(bodyId);
+  if (!body) return null;
+
+  const msgDiv = document.createElement("div");
+  msgDiv.className = "chat-msg bot typing-indicator-msg";
+  msgDiv.innerHTML = `<p><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></p>`;
+  
+  body.appendChild(msgDiv);
+  body.scrollTop = body.scrollHeight;
+  return msgDiv;
+}
+
+// Append interactive success cards inside the chat transcript
+function appendBookingSuccessCard(target, bookingId) {
+  const bodyId = target === "embed" ? "chatEmbedBody" : "chatFloatingBody";
+  const body = document.getElementById(bodyId);
+  if (!body) return;
+
+  const cardDiv = document.createElement("div");
+  cardDiv.className = "booking-success-card-chat";
+  cardDiv.innerHTML = `
+    <h5 style="color:#0f5132; margin:0 0 6px 0; font-size:14px; font-weight:700; display:flex; align-items:center; gap:6px;">
+      <i data-lucide="check-circle" style="width:16px; height:16px; color:#198754;"></i> Booking Confirmed!
+    </h5>
+    <p style="font-size:12px; margin:0 0 12px 0; color:#444; line-height:1.4;">
+      Your family tour has been committed to our database under ID: <strong>#${bookingId.substring(0, 8).toUpperCase()}</strong>.
+    </p>
+    <div style="display:flex; flex-direction:column; gap:6px;">
+      <button class="btn-success-action-chat" onclick="openInvoiceFromBookingId('${bookingId}')">
+        <i data-lucide="file-text" style="width:14px; height:14px;"></i> View Booking Details
+      </button>
+      <button class="btn-success-action-chat" onclick="printInvoice()">
+        <i data-lucide="printer" style="width:14px; height:14px;"></i> Print Invoice
+      </button>
+      <button class="btn-success-action-chat" onclick="shareWhatsAppFromCard('${bookingId}')">
+        <i data-lucide="send" style="width:14px; height:14px;"></i> Share via WhatsApp
+      </button>
+    </div>
+  `;
+  body.appendChild(cardDiv);
+  body.scrollTop = body.scrollHeight;
+
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+}
+
+// Parse user input and query real chat API endpoint
 function handleUserMsg(target, text) {
   if (!text.trim()) return;
+  if (isBookingConfirmed) {
+    appendMessage(target, "bot", "This booking session is completed and locked. Please start a new session by clearing your cache or reloading.");
+    return;
+  }
   
   // Clear input field
   const inputId = target === "embed" ? "chatEmbedInput" : "chatFloatingInput";
+  const sendId = target === "embed" ? "chatEmbedSend" : "chatFloatingSend";
   const input = document.getElementById(inputId);
+  const sendBtn = document.getElementById(sendId);
+  
   if (input) input.value = "";
+  
+  // Disable inputs to prevent duplicate sends
+  if (input) input.disabled = true;
+  if (sendBtn) sendBtn.disabled = true;
 
   // Append user message
   appendMessage(target, "user", text);
 
-  // Bot response timeout
-  setTimeout(() => {
-    const response = generateBotResponse(text);
-    appendMessage(target, "bot", response.reply);
+  // Show typing animation
+  const typingIndicator = showTypingIndicator(target);
+  
+  const threadId = getOrGenerateThreadId();
+
+  // Handle timeout (15s limit)
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 15000);
+
+  fetch("/api/v1/chat", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      thread_id: threadId,
+      message: text
+    }),
+    signal: controller.signal
+  })
+  .then(response => {
+    clearTimeout(timeoutId);
+    if (typingIndicator) typingIndicator.remove();
     
-    // If response prompts tour selection or booking, update internal variables
-    if (response.tour) currentChatTour = response.tour;
-    if (response.seats) currentChatSeats = response.seats;
+    // Enable inputs
+    if (input) input.disabled = false;
+    if (sendBtn) sendBtn.disabled = false;
+    if (input) input.focus();
     
-    // Auto-update suggestions based on context
-    updateSuggestions(target, response.suggestions);
-  }, 750);
+    if (response.status === 429) {
+      appendMessage(target, "bot", "You're sending messages too fast. Please wait a moment.");
+      return null;
+    }
+    if (!response.ok) {
+      throw new Error("HTTP error status: " + response.status);
+    }
+    return response.json();
+  })
+  .then(data => {
+    if (!data) return;
+
+    if (data.error) {
+      if (data.error.code === "RATE_LIMIT_EXCEEDED") {
+        appendMessage(target, "bot", "You're sending messages too fast. Please wait a moment.");
+      } else {
+        appendMessage(target, "bot", "Temporary issue. Please try again.");
+      }
+      return;
+    }
+
+    // Output live response reply
+    appendMessage(target, "bot", data.reply);
+
+    // Confirmation guides
+    if (data.requires_confirmation) {
+      updateSuggestions(target, ["Confirm Booking", "Check seat availability", "Cancel Booking"]);
+    } else {
+      updateSuggestions(target, ["Check seats", "Group discounts", "Main Menu"]);
+    }
+
+    // Success invoice triggers
+    if (data.booking_id) {
+      isBookingConfirmed = true;
+      localStorage.setItem("seeroo_booking_confirmed_" + threadId, "true");
+      disableChatInput();
+      appendBookingSuccessCard(target, data.booking_id);
+    }
+  })
+  .catch(err => {
+    clearTimeout(timeoutId);
+    if (typingIndicator) typingIndicator.remove();
+    
+    if (input) input.disabled = false;
+    if (sendBtn) sendBtn.disabled = false;
+    
+    if (err.name === "AbortError") {
+      appendMessage(target, "bot", "Connection timed out. Please check your internet connection and try again.");
+    } else {
+      appendMessage(target, "bot", "Temporary issue. Please try again.");
+    }
+  });
 }
 
-// AI Rules Engine (Simulating NLU parser)
-function generateBotResponse(input) {
-  const text = input.toLowerCase();
-  
-  // 1. Greetings
-  if (text.includes("hello") || text.includes("hi") || text.includes("assalam") || text.includes("aoa") || text.includes("hey")) {
-    return {
-      reply: "Assalam-o-Alaikum! 🌄 Seeroo Bot at your service. I organize safe, premium, family-only short trips from Attock, Wah, Taxila, and Kamra. You can ask about our upcoming Shogran and Siran Valley trips!",
-      suggestions: ["Tell me about Shogran", "Tell me about Siran Valley", "Check seats"]
-    };
-  }
+// Fetch booking records and open modal invoice
+function openInvoiceFromBookingId(bookingId) {
+  fetch(`/api/v1/bookings/${bookingId}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Booking record not found.");
+      }
+      return response.json();
+    })
+    .then(data => {
+      const invoiceId = "SR-" + data.id.substring(0, 8).toUpperCase();
+      const tourDate = data.tour ? data.tour.departure_date : "TBD";
+      const tourName = data.tour ? data.tour.tour_name : "Tour Destination";
+      const pickupPoint = PICKUP_DATA[data.pickup_city] ? PICKUP_DATA[data.pickup_city].location : "Main Chowk";
+      const pickupTime = PICKUP_DATA[data.pickup_city] ? PICKUP_DATA[data.pickup_city].time : "05:00 AM";
+      const leadName = data.user ? data.user.full_name : "Traveler";
+      const leadPhone = data.user ? data.user.phone : "WhatsApp Contact";
+      
+      const pricing = computePricing(data.price_per_head, data.seats);
+      const advanceDue = data.seats * 1000;
+      const remainingDue = data.total_price - advanceDue;
+      
+      currentBookingData = {
+        invoiceId,
+        tourName,
+        tourDate,
+        seats: data.seats,
+        city: data.pickup_city,
+        pickupPoint,
+        pickupTime,
+        name: leadName,
+        phone: leadPhone,
+        cnic: "Invoiced",
+        unitPrice: data.price_per_head,
+        rawTotal: pricing.rawTotal,
+        discountPct: pricing.discountPct,
+        discountAmt: pricing.discountAmt,
+        finalTotal: data.total_price,
+        advanceDue,
+        remainingDue
+      };
 
-  // 2. Shogran Meadows info
-  if (text.includes("shogran") || text.includes("siri paye") || text.includes("meadows")) {
-    return {
-      tour: "Shogran & Siri Paye Meadows",
-      reply: "Our Shogran & Siri Paye Meadows trip takes place on Saturday, 18 July 2026. Pricing: Rs. 4,500/head. It includes AC Saloon coaster transit, breakfast & dinner, basic first aid, and the Kiwai-to-Siri Paye jeep transport! Would you like to check seat availability or calculate pricing for your group?",
-      suggestions: ["Calculate Shogran pricing", "Check Shogran seats", "Go back"]
-    };
-  }
+      const receiptHTML = `
+        <div class="invoice-receipt">
+          <div class="receipt-header">
+            <h4 class="receipt-title">SEEROO TRAVELS ATTOCK</h4>
+            <p style="font-size:12px; color:rgba(0,0,0,0.5);">Weekend Escapes for Local Families</p>
+            <span class="receipt-status">${data.booking_status.toUpperCase()}</span>
+          </div>
+          
+          <table class="receipt-details-table">
+            <tr>
+              <td class="label-col">Invoice No.</td>
+              <td class="val-col">#${currentBookingData.invoiceId}</td>
+            </tr>
+            <tr>
+              <td class="label-col">Lead Traveler</td>
+              <td class="val-col">${currentBookingData.name}</td>
+            </tr>
+            <tr>
+              <td class="label-col">WhatsApp</td>
+              <td class="val-col">${currentBookingData.phone}</td>
+            </tr>
+            <tr>
+              <td class="label-col">Tour Name</td>
+              <td class="val-col">${currentBookingData.tourName}</td>
+            </tr>
+            <tr>
+              <td class="label-col">Departure Date</td>
+              <td class="val-col">${currentBookingData.tourDate}</td>
+            </tr>
+            <tr>
+              <td class="label-col">Departure Point</td>
+              <td class="val-col">${currentBookingData.city} (${currentBookingData.pickupPoint})</td>
+            </tr>
+            <tr>
+              <td class="label-col">Pickup Time</td>
+              <td class="val-col">${currentBookingData.pickupTime}</td>
+            </tr>
+            <tr>
+              <td class="label-col">Seats Booked</td>
+              <td class="val-col">${currentBookingData.seats} Seats</td>
+            </tr>
+          </table>
+          
+          <div class="receipt-pricing">
+            <div class="receipt-pricing-row">
+              <span>Fare (${currentBookingData.seats} x Rs. ${currentBookingData.unitPrice.toLocaleString()})</span>
+              <span>Rs. ${currentBookingData.rawTotal.toLocaleString()}</span>
+            </div>
+            ${currentBookingData.discountAmt > 0 ? `
+            <div class="receipt-pricing-row" style="color:var(--secondary);">
+              <span>Group Discount (${currentBookingData.discountPct}%)</span>
+              <span>-Rs. ${currentBookingData.discountAmt.toLocaleString()}</span>
+            </div>` : ''}
+            <div class="receipt-pricing-row total-row">
+              <span>Final Fare</span>
+              <span>Rs. ${currentBookingData.finalTotal.toLocaleString()}</span>
+            </div>
+            
+            <hr style="border:0; border-top:1px dashed rgba(0,0,0,0.1); margin:10px 0;">
+            
+            <div class="receipt-pricing-row" style="font-weight: 600; color: #b84f00;">
+              <span>Advance Deposit (Rs. 1000/seat)</span>
+              <span>Rs. ${currentBookingData.advanceDue.toLocaleString()}</span>
+            </div>
+            <div class="receipt-pricing-row" style="font-weight: 600; color: var(--primary-dark);">
+              <span>Due at Boarding</span>
+              <span>Rs. ${currentBookingData.remainingDue.toLocaleString()}</span>
+            </div>
+          </div>
+          
+          <p class="receipt-footer-notes">
+            Please share this invoice via WhatsApp to verify your advance seat deposit of Rs. ${currentBookingData.advanceDue.toLocaleString()} and receive final ticket confirmations.
+          </p>
+        </div>
+      `;
 
-  // 3. Siran Valley / Khanpur Dam info
-  if (text.includes("siran") || text.includes("khanpur") || text.includes("dam") || text.includes("valley")) {
-    return {
-      tour: "Siran Valley & Khanpur Dam",
-      reply: "Our Siran Valley & Khanpur Dam tour takes place on Saturday, 25 July 2026. Pricing: Rs. 3,700/head. Inclusions: AC transit, breakfast & dinner, tour guides, and boating at Khanpur Dam lake! Would you like to calculate your group price or check seats?",
-      suggestions: ["Calculate Siran pricing", "Check Siran seats", "Go back"]
-    };
-  }
+      document.getElementById("invoiceReceiptBody").innerHTML = receiptHTML;
+      const invoiceModal = document.getElementById("invoiceModal");
+      if (invoiceModal) invoiceModal.classList.add("active");
+      
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+    })
+    .catch(err => {
+      alert("Failed to load invoice details: " + err.message);
+    });
+}
 
-  // 4. Seat availability checker
-  if (text.includes("seat") || text.includes("availability") || text.includes("remaining") || text.includes("slots")) {
-    return {
-      reply: "Checking seat inventories... 🔍 <br>🟢 <strong>Shogran Siri Paye (18 July):</strong> 12 seats remaining.<br>🟢 <strong>Siran Valley & Khanpur (25 July):</strong> 15 seats remaining.<br>How many seats are you looking to reserve?",
-      suggestions: ["Book for 4 people", "Book for 8 people", "Ask about discounts"]
-    };
-  }
+// Redirect to WhatsApp sharing details from invoice card
+function shareWhatsAppFromCard(bookingId) {
+  fetch(`/api/v1/bookings/${bookingId}`)
+    .then(response => response.json())
+    .then(data => {
+      const invoiceId = "SR-" + data.id.substring(0, 8).toUpperCase();
+      const tourDate = data.tour ? data.tour.departure_date : "TBD";
+      const tourName = data.tour ? data.tour.tour_name : "Tour Destination";
+      const pickupPoint = PICKUP_DATA[data.pickup_city] ? PICKUP_DATA[data.pickup_city].location : "Main Chowk";
+      const pickupTime = PICKUP_DATA[data.pickup_city] ? PICKUP_DATA[data.pickup_city].time : "05:00 AM";
+      const leadName = data.user ? data.user.full_name : "Traveler";
+      const leadPhone = data.user ? data.user.phone : "WhatsApp Contact";
+      const advanceDue = data.seats * 1000;
+      
+      const msg = `Assalam-o-Alaikum Seeroo Travels! I want to confirm my family booking. Details:
+- Lead Traveler: ${leadName}
+- Tour: ${tourName} (${tourDate})
+- Seats: ${data.seats}
+- Pickup City: ${data.pickup_city} (${pickupPoint})
+- Pickup Time: ${pickupTime}
+- Total Fare: Rs. ${data.total_price.toLocaleString()}
+- Advance Deposit Due: Rs. ${advanceDue.toLocaleString()}
+Please send bank details for the deposit transfer! Invoice No: #${invoiceId}`;
 
-  // 5. Discount query
-  if (text.includes("discount") || text.includes("group") || text.includes("family price") || text.includes("reduction")) {
-    return {
-      reply: "Yes, we offer special group/family discounts! 🏷️<br>• <strong>5 to 9 seats:</strong> 5% discount.<br>• <strong>10 or more seats:</strong> 10% discount.<br>Tell me how many seats you need, and I'll calculate the final quote!",
-      suggestions: ["Price for 6 people", "Price for 12 people", "Main Menu"]
-    };
-  }
-
-  // 6. Pricing calculations parser
-  const seatMatch = text.match(/(\d+)\s*(seat|people|person|head|member|passenger)/);
-  if (seatMatch || text.includes("calculate") || text.includes("price for")) {
-    let seatsNum = 4; // Default fallback
-    if (seatMatch) {
-      seatsNum = parseInt(seatMatch[1]);
-    } else {
-      // Look for any isolated number
-      const numMatch = text.match(/\b(\d+)\b/);
-      if (numMatch) seatsNum = parseInt(numMatch[1]);
-    }
-    
-    // Determine tour context
-    let selectedTour = currentChatTour || "Shogran & Siri Paye Meadows";
-    let basePrice = selectedTour.includes("Siran") ? 3700 : 4500;
-    
-    const pricing = computePricing(basePrice, seatsNum);
-    
-    let discountMsg = pricing.discountPct > 0 
-      ? `🎉 Congratulations! A ${pricing.discountPct}% group discount has been applied (saved Rs. ${pricing.discountAmt.toLocaleString()}).` 
-      : `No group discount applied (discounts start at 5+ seats).`;
-
-    return {
-      tour: selectedTour,
-      seats: seatsNum,
-      reply: `Here is the pricing breakdown for <strong>${seatsNum} seats</strong> on the <strong>${selectedTour}</strong> tour:<br>• Base Rate: Rs. ${basePrice.toLocaleString()} / head<br>• Subtotal: Rs. ${pricing.rawTotal.toLocaleString()}<br>• ${discountMsg}<br>👉 <strong>Total Estimated Price: Rs. ${pricing.finalTotal.toLocaleString()}</strong><br><br>Would you like me to open the booking reservation form now?`,
-      suggestions: ["Yes, open booking form", "Change tour destination", "Main Menu"]
-    };
-  }
-
-  // 7. Booking triggers
-  if (text.includes("book") || text.includes("reserve") || text.includes("yes") || text.includes("proceed") || text.includes("form")) {
-    let selectedTour = currentChatTour || "Shogran & Siri Paye Meadows";
-    let basePrice = selectedTour.includes("Siran") ? 3700 : 4500;
-    let seatsNum = currentChatSeats || 2;
-    let tourDate = selectedTour.includes("Shogran") ? "18 July 2026" : "25 July 2026";
-    
-    // Trigger modal launch
-    setTimeout(() => {
-      startBooking(selectedTour, basePrice, tourDate, seatsNum, "Attock");
-    }, 500);
-
-    return {
-      reply: `Opening the reservation form for <strong>${selectedTour}</strong> with <strong>${seatsNum} seats</strong>. Please fill out your details in the modal that just appeared!`,
-      suggestions: ["Check other tours", "Main Menu"]
-    };
-  }
-
-  // 8. Go back / main menu
-  if (text.includes("back") || text.includes("menu") || text.includes("start over")) {
-    return {
-      reply: "How can I assist you? You can ask about Shogran, check seat availability, or calculate pricing directly.",
-      suggestions: ["Tell me about Shogran", "Tell me about Siran Valley", "Check seats"]
-    };
-  }
-
-  // 9. Fallback
-  return {
-    reply: "I'm happy to help with that! However, I work best when answering questions about our signature tours (Shogran Meadows / Siran Valley), picking up locations, checking seats, or calculating group discounts. Please type a specific question, or click one of the suggested buttons below.",
-    suggestions: ["Tell me about Shogran", "Check seat availability", "Main Menu"]
-  };
+      const encodedMsg = encodeURIComponent(msg);
+      const whatsappURL = `https://wa.me/923001234567?text=${encodedMsg}`;
+      window.open(whatsappURL, "_blank");
+    })
+    .catch(err => {
+      alert("Failed to open WhatsApp share: " + err.message);
+    });
 }
 
 // Update chat suggestions in HTML
@@ -418,6 +640,7 @@ function updateSuggestions(target, suggestions) {
     container.appendChild(btn);
   });
 }
+
 
 
 // ==========================================

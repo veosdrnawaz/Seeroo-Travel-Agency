@@ -2313,3 +2313,71 @@ h1, h2, h3, h4 {
     flex-direction: column;
   }
 }
+
+/* Custom CSS additions for AI Agent Success Card and Typing Dots */
+.booking-success-card-chat {
+  background-color: #d1e7dd;
+  border: 1px solid #badbcc;
+  color: #0f5132;
+  padding: 16px;
+  border-radius: 12px;
+  margin-top: 10px;
+  box-shadow: 0 4px 12px rgba(15, 81, 50, 0.05);
+}
+
+.btn-success-action-chat {
+  background-color: var(--primary-dark);
+  color: var(--white);
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background-color 0.2s ease;
+  font-family: var(--font-sans);
+  width: 100%;
+}
+
+.btn-success-action-chat:hover {
+  background-color: var(--secondary);
+}
+
+/* Typing indicator dot styles */
+.typing-indicator-msg p {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 2px 6px;
+}
+
+.typing-dot {
+  width: 7px;
+  height: 7px;
+  background-color: rgba(14, 46, 36, 0.5);
+  border-radius: 50%;
+  animation: typingBounce 1.4s infinite ease-in-out both;
+}
+
+.typing-dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes typingBounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1.0);
+  }
+}
+
